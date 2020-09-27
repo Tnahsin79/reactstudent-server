@@ -1,4 +1,3 @@
-const url="mongodb+srv://Tnahsin79:tnahsin79@guvi-zen.iisub.mongodb.net?retryWrites=true&w=majority";
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
@@ -11,14 +10,14 @@ app.use(bodyParser.json());
 app.use(cors({
   origin: "https://reactstudent.netlify.app"
 }));
-//origin:"https://mentor-and-student.netlify.app"
-//origin:"http://127.0.0.1:5500"
+//origin:"https://reactstudent.netlify.app"
+//origin:"http://localhost:3001"
 
 //student data
 console.log(process.env.URL);
 app.get("/students", async function (req, res) {
   try {
-    let client = await mongoClient.connect(url);
+    let client = await mongoClient.connect(process.env.URL);
     let db = client.db("react-student");
     let studentArray = await db.collection("student").find().toArray();
     client.close();
@@ -34,7 +33,7 @@ app.get("/students", async function (req, res) {
 });
 app.post("/student", async function (req, res) {
   try {
-    let client = await mongoClient.connect(url);
+    let client = await mongoClient.connect(process.env.URL);
     let db = client.db("react-student");
     let insertedStudent = await db.collection("student").insertOne({
       first_name: req.body.fname,
@@ -59,7 +58,7 @@ app.post("/student", async function (req, res) {
 app.put("/update", async function (req, res) {
   try {
     let sid = req.body.sid;
-    let client = await mongoClient.connect(url);
+    let client = await mongoClient.connect(process.env.URL);
     let db = client.db("react-student");
 
     let student = await db.collection("student")
@@ -99,7 +98,7 @@ app.put("/update", async function (req, res) {
 app.delete("/delete", async function (req, res) {
   try {
     let sid = req.body.delsid;
-    let client = await mongoClient.connect(url);
+    let client = await mongoClient.connect(process.env.URL);
     let db = client.db("react-student");
 
     let student = await db.collection("student")
