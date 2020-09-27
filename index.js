@@ -8,7 +8,7 @@ require('dotenv').config();
 //const url="mongodb://localhost:27017";
 app.use(bodyParser.json());
 app.use(cors({
-  origin: "http://localhost:3000"
+  origin: "https://reactstudent.netlify.app"
 }));
 //origin:"https://reactstudent.netlify.app"
 //origin:"http://localhost:3001"
